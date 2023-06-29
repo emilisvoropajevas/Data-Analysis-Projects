@@ -1,10 +1,10 @@
 /* Covid 19 Data Exploration, focusing on Covid Deaths and Covid Vacciantion data
 
-Skills used :Joins, CTE's, Temp Tables, Windows Functions, Aggregate Functions, Creating Views, Converting Data Types
+Skills used: Joins, CTE's, Temp Tables, Windows Functions, Aggregate Functions, Creating Views, Converting Data Types
 
 */
 
-SELECT* 
+SELECT * 
 FROM [PortfolioProject].[dbo].[CovidDeaths$]
 WHERE continent is not null
 ORDER BY 3,4
@@ -33,7 +33,7 @@ ORDER BY 1,2
 
 SELECT location, date, total_cases, population, (total_cases/population)*100 AS [Percentage Population Infected]
 FROM [PortfolioProject].dbo.CovidDeaths$
---ORDER BY [Percentage Population Infected] DESC
+-- ORDER BY [Percentage Population Infected] DESC
 ORDER BY 1,2
 
 -- Countries with Highest Infection Rate compared to Population
@@ -114,7 +114,7 @@ RollingPeopleVaccinated numeric
 
 INSERT INTO #PercentPopulationVaccinated
 SELECT dea.continent, dea.location, dea.date, dea.population, vac.new_vaccinations
-,SUM(CONVERT(int,vac.new_vaccinations)) OVER (PARTITION BY dea.location ORDER BY dea.location, dea.date) AS [Rolling People Vaccinated]
+,SUM(CONVERT(int,vac.new_vaccinations)) OVER (PARTITION BY dea.location ORDER BY dea.location, dea.date) AS RollingPeopleVaccinated
 FROM [PortfolioProject].dbo.CovidDeaths$ dea
 Join [PortfolioProject].dbo.CovidVaccinations$ vac
 	ON dea.location = vac.location
